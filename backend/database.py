@@ -20,6 +20,11 @@ subdir_name = config.get("Path", "subdir_name")
 class BibliotecaDB:
     def __init__(self):
         self.path = DATABASEPATH / "biblioteca" / json_name
+
+        if not self.path.exists():
+            self.data = {"books": {}, "active": None}
+            self.update()
+
         self.data = load(open(self.path, "r", encoding="utf-8"))
 
     def update(self):
@@ -63,7 +68,9 @@ class BibliotecaDB:
             return
 
         filepath = DATABASEPATH / "biblioteca" / subdir_name / (id + "." + extension)
-        print(filepath)
+
+        # Ensure the directory exists
+        filepath.parent.mkdir(parents=True, exist_ok=True)
 
         img.save(filepath)
 
@@ -192,6 +199,11 @@ class BibliotecaDB:
 class NotizieDB:
     def __init__(self):
         self.path = DATABASEPATH / "notizie" / json_name
+
+        if not self.path.exists():
+            self.data = {}
+            self.update()
+
         self.data = load(open(self.path, "r", encoding="utf-8"))
 
     def update(self):
@@ -268,6 +280,11 @@ class NotizieDB:
 class GalleriaDB:
     def __init__(self):
         self.path = DATABASEPATH / "galleria" / json_name
+
+        if not self.path.exists():
+            self.data = {}
+            self.update()
+
         self.data = load(open(self.path, "r", encoding="utf-8"))
 
     def update(self):
@@ -323,7 +340,13 @@ class GalleriaDB:
                 return
 
             filepath = DATABASEPATH / "galleria" / subdir_name / (id + "." + extension)
+
+            # Ensure the directory exists
+            filepath.parent.mkdir(parents=True, exist_ok=True)
+
             media.save(filepath)
+
+            # Info to be saved in the json is just the filename
             filepath = id + "." + extension
 
             logging.debug("File salvato in: " + str(filepath))

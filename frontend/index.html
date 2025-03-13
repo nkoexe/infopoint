@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Infopoint</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
@@ -12,10 +12,6 @@
 </head>
 
 <body>
-    <!-- riquadro per uscire da schermo intero. il nome l'ha scelto David perché sopra il padre c'è solo Dio -->
-    <div id="dio">
-        <button onclick="toggleFullScreen()">[]</button>
-    </div>
     <div id='padre'>
         <div id="galleria">
             <div id="elemento_galleria">
@@ -50,6 +46,7 @@
         <div id="logo">
             <img id="fotologo" class="foto" src='foto/logo.png'>
         </div>
+        <!-- togliere il commento qui e sotto per aggiungere l'orologio. Attualmente al Gandhi l'orologio utilizzato è sull'altro schermo -->
         <!-- <div id="ora">
             <div id="boxora">
                 <span id='orologio'></span>

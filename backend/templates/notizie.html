@@ -1,8 +1,14 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+
+{% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/news.css') }}" />
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/news.js') }}"></script>
-{% endblock %} {% block title %}Notizie{% endblock %} {% block header%}Notizie{% endblock %}{% block content %}
+{% endblock %}
 
+{% block title %}Notizie{% endblock %}
+{% block header%}Notizie{% endblock %}
+
+{% block content %}
 <div id="newsform">
   <form method="post">
     <div class="text">Che sta succedendo? Aggiungi una notizia:</div>
@@ -22,9 +28,7 @@
       <div class="text newstext{% if not notizie[id]['active'] %} disabled{% endif %}" id="{{ id }}">{{ notizie[id]['text'] }}</div>
       <div class="newsbtncont">
         <button class="newsbtn newsshowbtn" onclick="newsshow('{{ id }}')">
-          <span class="material-icons" id="newsshowicon{{ id }}"
-            >{% if notizie[id]['active'] %} visibility {% else %} visibility_off {% endif %}</span
-          >
+          <span class="material-icons" id="newsshowicon{{ id }}">{% if notizie[id]['active'] %} visibility {% else %} visibility_off {% endif %}</span>
         </button>
         <button class="newsbtn newseditbtn" onclick="newsedit('{{ id }}')">
           <span class="material-icons">edit</span>

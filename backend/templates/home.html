@@ -1,11 +1,13 @@
 {% extends "base.html" %}
-{% block title %}Configurazione{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/home.css') }}" />
 {% endblock %}
-{% block header %}Configurazione Infopoint{% endblock %}
-{% block content %}
 
+{% block title %}Configurazione{% endblock %}
+{% block header %}Configurazione Infopoint{% endblock %}
+
+{% block content %}
 <h1>Ciao, {{ user.username }}!</h1>
 
 <div id="container-pulsanti-home">
@@ -24,5 +26,4 @@
     {% endif %}
     <a href="{{url_for('logout')}}">Logout</a>
 </div>
-
 {% endblock %}

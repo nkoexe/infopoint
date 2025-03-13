@@ -1,15 +1,17 @@
-{% extends "root.html" %} {% block head2 %}
+{% extends "root.html" %}
+
+{% block head2 %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-{% endblock %} {% block main %}
+{% endblock %}
 
+{% block main %}
 <div id="header">
   <div id="headerleft">
-    <a id="logo" href="/"><span class="material-icons md-55">display_settings</span></a>
+    <a id="logo" href="{{ url_for('index') }}"><span class="material-icons md-55">display_settings</span></a>
     <span id="headertext" class="text">{% block header %}{% endblock %}</span>
   </div>
   <div id="headerright"></div>
 </div>
 <div id="content">{% block content %}{% endblock %}</div>
-
 {% endblock %}

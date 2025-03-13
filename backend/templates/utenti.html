@@ -1,5 +1,9 @@
-{% extends "base.html" %} {% block title %}Utenti{% endblock %} {% block header %}Impostazioni Utenti{% endblock %} {% block content %}
+{% extends "base.html" %}
 
+{% block title %}Utenti{% endblock %}
+{% block header %}Impostazioni Utenti{% endblock %}
+
+{% block content %}
 <table id="userstable">
   {% for id in users %}
   <tr>
@@ -10,5 +14,4 @@
   </tr>
   {% endfor %}
 </table>
-
 {% endblock %}

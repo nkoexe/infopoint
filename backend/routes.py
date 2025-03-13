@@ -1,23 +1,34 @@
 import logging
 from flask import (
+    Blueprint,
     redirect,
     render_template,
     request,
     send_from_directory,
-    Blueprint,
     url_for,
 )
-from werkzeug.middleware.proxy_fix import ProxyFix
+
 from app import app
-from flask_socketio import emit
-
-app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
-
 from auth import users, login_richiesto, ruolo_richiesto, current_user
-from databaseconnections import bibliotecadb, notiziedb, galleriadb, media_path
-from frontend import aggiorna_galleria, aggiorna_biblioteca, aggiorna_notizie
+from databaseconnections import (
+    bibliotecadb,
+    notiziedb,
+    galleriadb,
+    file_biblioteca,
+    file_galleria,
+)
+from frontend import (
+    aggiorna_galleria,
+    aggiorna_biblioteca,
+    aggiorna_notizie,
+    frontend as frontend_blueprint,
+)
+
 
 logger = logging.getLogger(__name__)
+
+
+app.register_blueprint(frontend_blueprint)
 
 
 @app.errorhandler(404)
@@ -30,7 +41,6 @@ def page_not_found(e):
 def index():
     # Se l'utente ha solo un permesso non mostrare la homepage ma
     # reindirizza direttamente alla pagina a cui si ha accesso.
-    # Il controllo viene eseguito sommando booleani, dato che in Python false=0 e true=1
     if sum((current_user.biblioteca, current_user.galleria, current_user.notizie)) == 1:
         if current_user.biblioteca:
             return redirect(url_for("biblioteca"))
@@ -40,8 +50,7 @@ def index():
             return redirect(url_for("notizie"))
 
     # Altrimenti mostra la homepage con pulsanti in base ai propri permessi
-    else:
-        return render_template("home.html", user=current_user)
+    return render_template("home.html", user=current_user)
 
 
 @app.route("/impostazioni")
@@ -76,14 +85,14 @@ def biblioteca():
             if id == "0":
                 if titolo and descrizione and copertina:
                     bibliotecadb.add(titolo, descrizione, copertina)
-                return redirect("/biblioteca")
+                return redirect(url_for("biblioteca"))
             # Modifica di un libro esistente
             elif id != "0" and id != "duplicate":
                 if titolo and descrizione and copertina:
                     bibliotecadb.editImg(id, titolo, descrizione, copertina)
                 elif titolo and descrizione:
                     bibliotecadb.edit(id, titolo, descrizione)
-                return redirect("/biblioteca")
+                return redirect(url_for("biblioteca"))
 
         elif "img_duplicated" in request.form:
             img = request.form["img_duplicated"].strip()
@@ -91,7 +100,7 @@ def biblioteca():
             descrizione = request.form["descrizione"].strip()
             if titolo and descrizione and img:
                 bibliotecadb.duplicate(titolo, descrizione, img)
-            return redirect("/biblioteca")
+            return redirect(url_for("biblioteca"))
 
     elif request.method == "DELETE":
         id = request.form["id"]
@@ -130,7 +139,7 @@ def galleria():
 
             aggiorna_galleria()
 
-        return redirect("/galleria")
+        return redirect(url_for("galleria"))
 
     elif request.method == "DELETE":
         id = request.form["id"]
@@ -147,11 +156,6 @@ def galleria():
     aggiorna_galleria()
 
     return "ok"
-
-
-@app.route("/galleria/<path:filename>")
-def media(filename):
-    return send_from_directory(media_path, filename)
 
 
 @app.route("/notizie", methods=["GET", "POST", "DELETE", "PUT"])
@@ -175,7 +179,7 @@ def notizie():
 
             aggiorna_notizie()
 
-        return redirect("/notizie")
+        return redirect(url_for("notizie"))
 
     # Aggiornamento della notizia
     elif request.method == "PUT":
@@ -203,6 +207,18 @@ def notizie():
     return "ok"
 
 
+@app.route("/galleria/<path:filename>")
+@login_richiesto
+def media_galleria(filename):
+    return file_galleria(filename)
+
+
+@app.route("/biblioteca/<path:filename>")
+@login_richiesto
+def media_biblioteca(filename):
+    return file_biblioteca(filename)
+
+
 # @app.route("/zoom")
 # @login_richiesto
 # def zoom():
@@ -220,7 +236,11 @@ def notizie():
 def update():
     import subprocess
 
-    subprocess.check_call(["/usr/bin/git", "pull"])
+    try:
+        subprocess.check_call(["/usr/bin/git", "pull"])
+    except subprocess.CalledProcessError as e:
+        logger.error(f"Error during git pull: {e}")
+        return "Error in git pull"
 
     subprocess.Popen(["/usr/bin/systemctl", "restart", "infopoint.service"])
 

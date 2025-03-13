@@ -1,4 +1,4 @@
-// https://github.com/nkoexe/sostituzioni
+// https://github.com/nkoexe/scuolasync
 
 
 let notizie = []

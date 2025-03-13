@@ -1,7 +1,12 @@
-{% extends "root.html" %} {% block title %}Login{% endblock %} {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}" />
-{% endblock %} {% block main %}
+{% extends "root.html" %}
 
+{% block title %}Login{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}" />
+{% endblock %}
+
+{% block main %}
 <div id="container">
   <h1 class="text">Infopoint Login</h1>
   {% if error %}
@@ -13,5 +18,4 @@
     <input type="submit" value="Conferma" />
   </form>
 </div>
-
 {% endblock %}

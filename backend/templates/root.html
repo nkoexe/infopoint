@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" />
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/root.css') }}" />
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" />
-    {% block head2 %}{% endblock %} {% block head %}{% endblock %}
+    {% block head2 %}{% endblock %}{% block head %}{% endblock %}
     <title>{% block title %}{% endblock %} | Infopoint</title>
   </head>
   <body>
     <div id="main">{% block main %}{% endblock %}</div>
-    <footer><span class="text">&copy; 2022-2024 Laboratorio HtS</span></footer>
+    <footer><span class="text">&copy; 2022-2025 Laboratorio HtS</span></footer>
   </body>
 </html>

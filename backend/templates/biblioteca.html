@@ -1,8 +1,14 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+
+{% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/biblioteca.css') }}" />
 <script type="text/javascript" src="{{ url_for('static', filename='scripts/biblioteca.js') }}"></script>
-{% endblock %} {% block title %}Biblioteca{% endblock %} {% block header %}Biblioteca{% endblock %}{% block content %}
+{% endblock %}
 
+{% block title %}Biblioteca{% endblock %}
+{% block header %}Biblioteca{% endblock %}
+
+{% block content %}
 <form method="post" enctype="multipart/form-data">
   <label class="text" for="copertina"> Inserisci copertina libro: </label>
   <input type="file" id="input_copertina" name="copertina" accept="image/*" onchange="loadFile(event)" /><br />
@@ -23,8 +29,7 @@
   <li id="{{ id }}">
     <div class="bcont">
       <div class="b">
-        <!-- todo: utilizzare funzioni in databaseconnections -->
-        <div><img id="img.{{ id }}" src="{{ url_for('media', filename='biblioteca/files/' + libri[id]['img'] ) }}" alt="{{ libri[id]['img'] }}"></div>
+        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=libri[id]['img'] ) }}" alt="{{ libri[id]['img'] }}"></div>
         <div id="title.{{ id }}" class="text">{{ libri[id]['title'] }}</div>
         <div id="desc.{{ id }}" class="text">{{ libri[id]['descr'] }}</div>
       </div>
@@ -38,5 +43,4 @@
   </li>
   {% endfor %}
 </ul>
-
 {% endblock %}

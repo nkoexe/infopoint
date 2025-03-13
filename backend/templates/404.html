@@ -1,11 +1,15 @@
-{% extends "root.html" %} {% block title %} Non trovato {% endblock %} {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/404.css') }}" />
-{% endblock %} {% block main %}
+{% extends "root.html" %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/404.css') }}" />
+{% endblock %}
+
+{% block title %}Non trovato{% endblock %}
+
+{% block main %}
 <div id="container">
   <h1 class="text">Whoops! Questa pagina non esiste.</h1>
   <p class="text">Se non ti aspettavi di finire qui, puoi segnalarlo ad un responsabile.<br />Altrimenti, puoi tornare alla</p>
-  <a href="/" class="btn">HOMEPAGE</a>
+  <a href="{{ url_for('index' ) }}" class="btn">HOMEPAGE</a>
 </div>
-
 {% endblock %}

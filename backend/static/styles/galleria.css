@@ -1,10 +1,105 @@
+#aggiunta_elemento {
+    margin: 40px auto;
+    min-width: 600px;
+    max-width: 1400px;
+    width: 60%;
+    padding: 30px 40px;
+    background-color: var(--bg2);
+    border-radius: 20px;
+}
+
+input[type="text"],
+input[type="url"] {
+    background-color: var(--bg1);
+    border: none;
+    width: 90%;
+    padding: 10px 20px;
+    border-radius: 10px;
+}
+
+#oppure {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+    background-color: inherit;
+    z-index: 2;
+    opacity: 0.3;
+}
+
+#oppure::after,
+#oppure::before {
+    content: "";
+    position: absolute;
+    width: 35%;
+    left: 5%;
+    top: 53%;
+    height: 1px;
+    z-index: 1;
+    background-color: #000;
+}
+
+#oppure::before {
+    right: 5%;
+    left: auto;
+}
+
+#input_descrizione {
+    margin-top: 40px;
+}
+
+#oppure.hidden~#input_descrizione {
+    margin-top: 10px;
+}
+
+#aggiunta_pulsanti {
+    display: flex;
+    justify-content: end;
+    margin-top: 30px;
+    height: 65px;
+    gap: 20px;
+}
+
+#activecheck {
+    display: none;
+}
+
+#active {
+    background-color: #e74c3c;
+    border-radius: 10px;
+    width: 80px;
+    color: white;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    transition: all 0.2s;
+}
+
+#activecheck:checked~#active {
+    background-color: #7cbb7f;
+}
+
+#activecheck:checked::before {
+    content: "<span class='material-icons'>visibility_off</span>";
+}
+
+#galleriasubmit {
+    padding: 0 35px;
+    margin: 0;
+    border-radius: 15px;
+    font-size: 1.2em;
+}
+
 #blist {
     margin: 0;
     padding: 0;
     width: 100%;
     list-style: none;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+
     grid-gap: 10px;
 }
 
@@ -39,13 +134,9 @@
 
 .bbtncont .bbtn {
     display: flex;
+    padding: 10px 15px;
 }
 
 .bbtncont .material-icons {
     margin: auto
-}
-
-
-.hidden {
-    display: none
 }

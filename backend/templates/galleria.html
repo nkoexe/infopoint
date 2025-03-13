@@ -1,43 +1,59 @@
-{% extends "base.html" %} {% block head %}
+{% extends "base.html" %}
+
+{% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/galleria.css') }}" />
-<script type="text/javascript" src="{{ url_for('static', filename='scripts/galleria.js') }}"></script>
-{% endblock %} {% block title %}Galleria{% endblock %} {% block header %}Galleria{%
-endblock %}{% block content %}
-<form method="post" enctype="multipart/form-data">
-  <label class="text" for="copertina"> Aggiungi foto/video: </label>
-  <input type="file" id="input_galleria" name="galleria" accept="image/*" />
-  <label class="text" for="copertina">&emsp;|&emsp;Aggiungi link: </label>
-  <input type="url" id="input_link" name="link" /> <br />
-  <label class="text" for="titolo"> Inserisci descrizione: </label>
-  <input type="text" id="input_descrizione" name="descrizione" /><br />
-  <label class="text" for="titolo"> Attivo: </label>
-  <input type="checkbox" id="activecheck" name="checkbox"> <br />
-  <button type="submit" id="galleriasubmit" class="btn">Invia</button>
-</form>
+{% endblock %}
+
+{% block title %}Galleria{% endblock %}
+{% block header %}Galleria{% endblock %}
+
+{% block content %}
+<div id="aggiunta_elemento">
+  <form method="post" enctype="multipart/form-data">
+    <div id="galleria_file" class="file_input">
+      <div class="file_preview hidden">
+        <img id="galleria_preview" alt="Anteprima Immagine">
+        <button class="delete_file_button" onclick="elimina_preview()" type="button"><span class="icon material-icons">close</span></button>
+      </div>
+      <div id="file_dropzone">
+        <input type="file" id="galleria_file_input" name="galleria" accept="image/*" />
+        <label for="galleria_file_input" tabindex="0"><span>Seleziona un'immagine o video</span></label>
+      </div>
+    </div>
+    <div id="oppure">oppure</div>
+    <input type="url" id="input_link" name="link" placeholder="Aggiungi link da YouTube" /> <br />
+    <input type="text" id="input_descrizione" name="descrizione" placeholder="Descrizione (facoltativa)" /><br />
+    <div id="aggiunta_pulsanti">
+      <input type="checkbox" id="activecheck" name="checkbox" checked />
+      <label id="active" for="activecheck"><span class="material-icons">visibility</span></label>
+      <button type="submit" id="galleriasubmit" class="btn">Carica</button>
+    </div>
+  </form>
+</div>
 
 <ul id="blist">
-  {% for id in media %}
+  {% set media = media | dictsort(reverse=True) %}
+  {% for id, data in media %}
   <li id="{{ id }}">
     <div class="bcont">
-      <div class="b {% if not media[id]['active'] %}non_pubblicato{% endif %}">
-        {% if media[id]['type'] == 'youtube' %}
-        <iframe id="img-{{ id }}" class="bmedia" src="https://www.youtube.com/embed/{{ media[id]['path'] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        {% elif media[id]['type'] == 'video' %}
-        <video id="img-{{ id }}" class="bmedia" src="{{ url_for('media', filename='galleria/files/' + media[id]['path'] ) }}" controls></video>
+      <div class="b {% if not data['active'] %}non_pubblicato{% endif %}">
+        {% if data['type'] == 'youtube' %}
+        <iframe id="img-{{ id }}" class="bmedia" src="https://www.youtube.com/embed/{{ data['path'] }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        {% elif data['type'] == 'video' %}
+        <video id="img-{{ id }}" class="bmedia" src="{{ url_for('media_galleria', filename=data['path'] ) }}" controls></video>
         {% else %}
-        <img id="img-{{ id }}" class="bmedia" src="{{ url_for('media', filename='galleria/files/' + media[id]['path'] ) }}" alt="{{ media[id]['path'] }}">
+        <img id="img-{{ id }}" class="bmedia" src="{{ url_for('media_galleria', filename=data['path'] ) }}" alt="{{ data['path'] }}">
         {% endif %}
-        <div id="desc-{{ id }}" class="text">{{ media[id]['text'] }}</div>
+        <div id="desc-{{ id }}" class="text">{{ data['text'] }}</div>
       </div>
       <div class="bbtncont">
-        <button class="bbtn" onclick="imgshow('{{ id }}')"><span class="material-icons">{% if media[id]['active'] %} visibility {% else %} visibility_off {% endif %}</span></button>
-        <button id="bookedit" class="bbtn" onclick="imgedit('{{ id }}')"><span class="material-icons">edit</span></button>
-        <!-- <button id="duplicate" class="bbtn" onclick="duplicate('{{ id }}')">duplica</button> -->
+        <button class="bbtn" onclick="imgshow('{{ id }}')"><span class="material-icons">{% if data['active'] %} visibility {% else %} visibility_off {% endif %}</span></button>
+        <!-- <button id="bookedit" class="bbtn" onclick="imgedit('{{ id }}')"><span class="material-icons">edit</span></button> -->
         <button class="bbtn" onclick="imgdel('{{ id }}')"><span class="material-icons">delete</span></button>
       </div>
     </div>
   </li>
   {% endfor %}
 </ul>
-
+<script type="text/javascript" src="{{ url_for('static', filename='scripts/galleria.js') }}"></script>
 {% endblock %}

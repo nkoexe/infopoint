@@ -3,7 +3,7 @@ const template_video = `<video id="galleria_video" onended="cambia_elemento_gall
 const template_immagine = `<img id="galleria_immagine" src="{src}" alt="Qui ci dovrebbe essere un'immagine. Whoops!" />`
 
 // Path messo come fix per proxy
-const socket = io('/frontend', { path: "/infopoint/socket.io" });
+const socket = io('/frontend', { path: "/socket.io" });
 
 // Il nome l'ha scelto David, questo è il riquadro per uscire da schermo intero
 const dio = document.getElementById('dio');

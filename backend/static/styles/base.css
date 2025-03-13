@@ -5,6 +5,11 @@
     /* separator line */
     padding-right: 20px;
     border-right: 2px solid var(--text2);
+    user-select: none;
+}
+
+.hidden {
+    display: none !important;
 }
 
 #header {
@@ -19,7 +24,8 @@
 
 #headertext {
     position: relative;
-    top: -10px;  /** to compensate for y padding caused by the icon I DON'T KNOW WHY */
+    top: -10px;
+    /** to compensate for y padding caused by the icon I DON'T KNOW WHY */
     height: 100%;
     font-weight: 700;
     font-size: 50px;
@@ -28,4 +34,94 @@
 
 #content {
     margin: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file_input {
+    display: flex;
+    gap: 10px;
+}
+
+.file_input.loading {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.file_input .file_preview {
+    position: relative;
+    height: 200px;
+    width: fit-content;
+    padding: 10px;
+    margin: auto;
+    border: var(--border-opzione);
+    border-radius: 10px;
+    background-color: var(--color-background-opzione);
+}
+
+.file_input .file_preview img {
+    max-height: 100%;
+    border-radius: 5px;
+}
+
+.file_input .file_preview .delete_file_button {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 10px;
+    background-color: #cf0019;
+    color: white;
+}
+
+.file_input .file_preview .delete_file_button .icon {
+    font-size: 14px;
+}
+
+#file_dropzone {
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+    color: #00000099;
+    background-color: var(--color-opzioni);
+    border: var(--border-opzione);
+    border-style: dashed;
+    border-width: 2px;
+    border-radius: 5px;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+#file_dropzone:has(.fileselected) {
+    display: none;
+}
+
+#file_dropzone label {
+    padding: 20px;
+    cursor: pointer;
+}
+
+#file_dropzone label:hover {
+    text-decoration: underline;
+}
+
+#file_dropzone.filehover {
+    background-color: #00000015;
+    border-color: #00000062;
+    box-shadow: 0 0 10px #00000043;
+}
+
+#file_dropzone.filehover label {
+    pointer-events: none;
 }
