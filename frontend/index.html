@@ -2,64 +2,64 @@
 <html lang="it">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Infopoint</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
-    <script src="https://www.youtube.com/iframe_api"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Infopoint</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
-    <div id='padre'>
-        <div id="galleria">
-            <div id="elemento_galleria">
-                <img id="galleria_immagine" src="foto/capybara.jpg" alt="Qui ci dovrebbe essere un'immagine. Se stai leggendo questo testo, contatta <niccolo.ragazzi@gandhimerano.com>" />
-            </div>
-            <div id="didascaliagalleria">
-                <p>
-                    Odi et amo. Quare id faciam, fortasse requiris.
-                    Nescio, sed fieri sentio et excrucior.
-                </p>
-            </div>
-        </div>
-        <div id="notizie-container">
-            <div id="notizie-lista" class="notizie-lista">
-                <span class="notizia">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
-                <span class="notizia">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-                <span class="notizia">Ut enim ad minim veniam aaaaaaaaaaaaa</span>
-            </div>
-        </div>
-        <div id="meteo">
-            <div id="ww_e4f44779fc8c1" v='1.3' loc='id' a='{"t":"responsive","lang":"it","sl_lpl":1,"ids":["wl8009"],"font":"Arial","sl_ics":"one","sl_sot":"celsius","cl_bkg":"#FFFFFF00","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"5","cl_odd":"#00000000","el_nme":3}'>Altre previsioni: <a href="https://oneweather.org/rome/30_days/" id="ww_e4f44779fc8c1_u" target="_blank">Rome 30 day forecast</a></div>
-        </div>
-        <div id="biblioteca">
-            <h1 id="titolobiblioteca">
-                I promessi sposi
-            </h1>
-            <img id="immaginebiblioteca" src="foto/i promessi.jpg">
-            <p id="descrizionebiblioteca">
-                I promessi sposi sono un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana.
-            </p>
-        </div>
-        <div id="logo">
-            <img id="fotologo" class="foto" src='foto/logo.png'>
-        </div>
-        <!-- togliere il commento qui e sotto per aggiungere l'orologio. Attualmente al Gandhi l'orologio utilizzato è sull'altro schermo -->
-        <!-- <div id="ora">
+  <div id='padre'>
+    <div id="galleria">
+      <div id="elementi_galleria">
+        <img id="galleria_immagine" src="foto/capybara.jpg" alt="Qui ci dovrebbe essere un'immagine. Se stai leggendo questo testo, contatta <niccolo.ragazzi@gandhimerano.com>" />
+      </div>
+      <div id="didascaliagalleria">
+        <p>
+          Odi et amo. Quare id faciam, fortasse requiris.
+          Nescio, sed fieri sentio et excrucior.
+        </p>
+      </div>
+    </div>
+    <div id="notizie-container">
+      <div id="notizie-lista" class="notizie-lista">
+        <span class="notizia">Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+        <span class="notizia">sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+        <span class="notizia">Ut enim ad minim veniam aaaaaaaaaaaaa</span>
+      </div>
+    </div>
+    <div id="meteo">
+      <div id="ww_e4f44779fc8c1" v='1.3' loc='id' a='{"t":"responsive","lang":"it","sl_lpl":1,"ids":["wl8009"],"font":"Arial","sl_ics":"one","sl_sot":"celsius","cl_bkg":"#FFFFFF00","cl_font":"#000000","cl_cloud":"#d4d4d4","cl_persp":"#2196F3","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","sl_tof":"5","cl_odd":"#00000000","el_nme":3}'>Altre previsioni: <a href="https://oneweather.org/rome/30_days/" id="ww_e4f44779fc8c1_u" target="_blank">Rome 30 day forecast</a></div>
+    </div>
+    <div id="biblioteca">
+      <h1 id="titolobiblioteca">
+        I promessi sposi
+      </h1>
+      <img id="immaginebiblioteca" src="foto/i promessi.jpg">
+      <p id="descrizionebiblioteca">
+        I promessi sposi sono un celebre romanzo storico di Alessandro Manzoni, ritenuto il più famoso e il più letto tra quelli scritti in lingua italiana.
+      </p>
+    </div>
+    <div id="logo">
+      <img id="fotologo" class="foto" src='foto/logo.png'>
+    </div>
+    <!-- togliere il commento qui e sotto per aggiungere l'orologio. Attualmente al Gandhi l'orologio utilizzato è sull'altro schermo -->
+    <!-- <div id="ora">
             <div id="boxora">
                 <span id='orologio'></span>
             </div>
         </div> -->
-        <div id="crediti">
-            Powered by Laboratorio HackingTheSchool
-        </div>
+    <div id="crediti">
+      Powered by Laboratorio HackingTheSchool
     </div>
-    <script async src="https://app2.weatherwidget.org/js/?id=ww_e4f44779fc8c1"></script>
-    <script src="js/notizie.js"></script>
-    <script src="js/main.js"></script>
-    <!-- <script src="js/ora.js"></script> -->
+  </div>
+  <script async src="https://app2.weatherwidget.org/js/?id=ww_e4f44779fc8c1"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script src="js/notizie.js"></script>
+  <script src="js/main.js"></script>
+  <!-- <script src="js/ora.js"></script> -->
 </body>
 
 </html>

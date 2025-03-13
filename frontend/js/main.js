@@ -1,12 +1,9 @@
 // const template_youtube = `<iframe id="galleria_youtube" src="{src}" type="text/html" frameborder="0" allow="autoplay; encrypted-media" sandbox="allow-same-origin allow-scripts" allowfullscreen></iframe>`
-const template_video = `<video id="galleria_video" onended="cambia_elemento_galleria()" autoplay controls><source src="{src}" type="video/mp4"></video>`
-const template_immagine = `<img id="galleria_immagine" src="{src}" alt="Qui ci dovrebbe essere un'immagine. Whoops!" />`
+const template_video = `<video onended="cambia_elemento_galleria()"><source src="{src}" type="video/mp4"></video>`
+const template_immagine = `<img src="{src}" alt="Qui ci dovrebbe essere un'immagine. Whoops!" />`
 
 // Path messo come fix per proxy
 const socket = io('/frontend', { path: "/socket.io" });
-
-// Il nome l'ha scelto David, questo è il riquadro per uscire da schermo intero
-const dio = document.getElementById('dio');
 
 // Elementi riquadro biblioteca
 const titolobiblioteca = document.getElementById('titolobiblioteca');
@@ -15,39 +12,39 @@ const descrizionebiblioteca = document.getElementById('descrizionebiblioteca');
 
 let index_galleria = -1;
 let dati_galleria = [];
-const elemento_galleria = document.getElementById('elemento_galleria');
+const galleria = document.getElementById('elementi_galleria');
 const galleria_didascalia = document.getElementById('didascaliagalleria').children[0];
-
-// da rimuovere dato che il riquadro dio non viene utilizzato
-function toggleFullScreen() {
-    if (!document.fullscreenElement &&
-        !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen();
-        } else if (document.documentElement.mozRequestFullScreen) {
-            document.documentElement.mozRequestFullScreen();
-        } else if (document.documentElement.webkitRequestFullscreen) {
-            document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-        }
-    } else {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
-    }
-}
-
-document.onkeydown = (event) => {
-    if (event.code === 'Escape') {
-        dio.classList.toggle('expanded');
-    }
-}
-
+let playing_video = false;
 
 // -------------------------------
+
+
+function crea_elementi_galleria() {
+    galleria.innerHTML = "";
+
+    for (let i = 0; i < dati_galleria.length; i++) {
+        let elemento = dati_galleria[i];
+        let elemento_galleria = document.createElement('div');
+        elemento_galleria.id = `elemento_galleria_${i}`;
+
+        elemento_galleria.classList.add("hidden");
+        galleria.appendChild(elemento_galleria);
+
+        if (elemento.type === 'youtube') {
+            elemento_galleria.innerHTML = `<div id="galleria_youtube_${i}"></div>`
+
+        } else if (elemento.type === 'video') {
+            elemento_galleria.innerHTML = template_video.replace("{src}", "galleria/" + elemento.path)
+
+        } else if (elemento.type === 'image') {
+            elemento_galleria.innerHTML = template_immagine.replace("{src}", "galleria/" + elemento.path)
+
+        } else {
+            console.log("Errore nel tipo di elemento: " + elemento.type)
+            galleria.removeChild(elemento_galleria);
+        }
+    }
+}
 
 
 function cambia_elemento_galleria() {
@@ -58,54 +55,67 @@ function cambia_elemento_galleria() {
         return;
     }
 
+    playing_video = false;
+
+    if (index_galleria >= 0) {
+        let elemento_precedente = document.getElementById(`elemento_galleria_${index_galleria}`);
+        elemento_precedente.classList.add("hidden")
+    }
+
     index_galleria = (index_galleria + 1) % dati_galleria.length;
     let elemento = dati_galleria[index_galleria];
 
+    let elemento_sucessivo = document.getElementById(`elemento_galleria_${index_galleria}`);
+    elemento_sucessivo.classList.remove("hidden")
+
+    galleria_didascalia.innerHTML = elemento.text;
+
     if (elemento.type === 'youtube') {
-
-        // elemento_galleria.innerHTML = template_youtube.replace("{src}", elemento.path + "?autoplay=1&controls=0&disablekb=1&enablejsapi=1&fs=0&hl=it&loop=1&modestbranding=1&iv_load_policy=3")
-        elemento_galleria.innerHTML = '<div id="galleria_youtube"></div>'
-        galleria_didascalia.innerHTML = elemento.text;
-
-        new YT.Player('galleria_youtube', {
-            videoId: elemento.path,
-            playerVars: {
-                modestbranding: 1,
-                controls: 0,
-                disablekb: 1,
-                fs: 0,
-                hl: 'it',
-                iv_load_policy: 3
-            },
-            events: {
-                'onReady': (event) => {
-                    event.target.playVideo();
+        playing_video = true;
+        window.YT.ready(() => {
+            new YT.Player(`galleria_youtube_${index_galleria}`, {
+                videoId: elemento.path,
+                playerVars: {
+                    enablejsapi: 1,
+                    modestbranding: 1,
+                    controls: 0,
+                    // disablekb: 1,
+                    fs: 0,
+                    hl: 'it',
+                    iv_load_policy: 3,
+                    autoplay: 1,
+                    loop: 0,
+                    rel: 0,
                 },
-                'onStateChange': (event) => {
-                    if (event.data == YT.PlayerState.ENDED) {
-                        cambia_elemento_galleria();
+                events: {
+                    'onReady': (event) => {
+                        event.target.seekTo(0);
+                        event.target.playVideo();
+                    },
+                    'onStateChange': (event) => {
+                        if (event.data == YT.PlayerState.ENDED) {
+                            cambia_elemento_galleria();
+                            event.target.destroy();
+                        }
                     }
                 }
-            }
+            })
         });
 
+
     } else if (elemento.type === 'video') {
-        elemento_galleria.innerHTML = template_video.replace("{src}", "galleria/" + elemento.path)
-        galleria_didascalia.innerHTML = elemento.text;
-
+        playing_video = true;
+        elemento_sucessivo.children[0].play();
     } else if (elemento.type === 'image') {
-        elemento_galleria.innerHTML = template_immagine.replace("{src}", "galleria/" + elemento.path)
-        galleria_didascalia.innerHTML = elemento.text;
-
         setTimeout(() => {
             cambia_elemento_galleria();
-        }, 10000)
-
+        }, 1000)
     } else {
         console.log("Errore nel tipo di elemento: " + elemento.type)
         cambia_elemento_galleria();
     }
-};
+}
+
 
 cambia_elemento_galleria()
 
@@ -121,12 +131,24 @@ socket.on('biblioteca', (data) => {
 })
 
 socket.on('galleria', (data) => {
-    index_galleria = 0;
-    dati_galleria = [];
+    if (index_galleria >= 0) {
+        document.getElementById(`elemento_galleria_${index_galleria}`).classList.add("hidden")
+        index_galleria = -1;
+        dati_galleria = [];
+    }
+
     for (elemento in data) {
         if (data[elemento].active) {
             dati_galleria.push(data[elemento]);
         }
+    }
+
+    crea_elementi_galleria();
+
+    if (playing_video) {
+        // dato che gli elementi della galleria vengono caricati nuovamente, un video non più esistente
+        // non può passare al prossimo elemento della galleria, per questo il cambio manuale
+        cambia_elemento_galleria();
     }
 })
 
