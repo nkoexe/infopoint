@@ -1,8 +1,10 @@
-# .vscode/
-__pycache__/
+.vscode/
+.idea/
 
+__pycache__/
 env/
 
-/frontend/foto/
-
-*.mp4
+database/
+!database/biblioteca/example.json
+!database/galleria/example.json
+!database/notizie/example.json
