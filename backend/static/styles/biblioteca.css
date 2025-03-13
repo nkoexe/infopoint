@@ -11,6 +11,11 @@
     list-style: none;
 }
 
+input {
+    /* temp fix until dropzone implemented */
+    display: inline !important;
+}
+
 .bcont {
     /* background-color: #252525; */
     display: flex;
@@ -18,15 +23,11 @@
     padding: 10px;
 }
 
-.bimg {
+.bimg {}
 
-}
-.btit {
+.btit {}
 
-}
-.bdesc {
-
-}
+.bdesc {}
 
 .bbtncont {
     margin-left: 10px;

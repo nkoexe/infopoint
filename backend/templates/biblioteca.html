@@ -25,13 +25,15 @@
 </form>
 
 <ul id="blist">
-  {% for id in libri %}
+
+  {% set libri = libri | dictsort(reverse=True) %}
+  {% for id, data in libri %}
   <li id="{{ id }}">
     <div class="bcont">
       <div class="b">
-        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=libri[id]['img'] ) }}" alt="{{ libri[id]['img'] }}"></div>
-        <div id="title.{{ id }}" class="text">{{ libri[id]['title'] }}</div>
-        <div id="desc.{{ id }}" class="text">{{ libri[id]['descr'] }}</div>
+        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" alt="{{ data['img'] }}"></div>
+        <div id="title.{{ id }}" class="text">{{ data['title'] }}</div>
+        <div id="desc.{{ id }}" class="text">{{ data['descr'] }}</div>
       </div>
       <div class="bbtncont">
         <button onclick="bookshow('{{ id }}')">riutilizza</button>
