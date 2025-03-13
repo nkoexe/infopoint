@@ -109,7 +109,7 @@ function cambia_elemento_galleria() {
     } else if (elemento.type === 'image') {
         setTimeout(() => {
             cambia_elemento_galleria();
-        }, 1000)
+        }, 10000)
     } else {
         console.log("Errore nel tipo di elemento: " + elemento.type)
         cambia_elemento_galleria();
@@ -172,9 +172,9 @@ function reconnect() {
     fetch('/')
         .then((response) => {
             if (response.ok) {
-                setTimeout(() => {
+                se10000tTimeout(() => {
                     location.reload()
-                }, 10000);
+                }, 500);
             }
         })
         .catch(() => { })
