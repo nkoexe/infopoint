@@ -174,7 +174,7 @@ function reconnect() {
             if (response.ok) {
                 setTimeout(() => {
                     location.reload()
-                }, 500);
+                }, 10000);
             }
         })
         .catch(() => { })
