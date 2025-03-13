@@ -143,6 +143,7 @@ socket.on('galleria', (data) => {
         }
     }
 
+    // todo: aggiornare dinamicamente lista senza ricaricare tutti gli elementi
     crea_elementi_galleria();
 
     if (playing_video) {
