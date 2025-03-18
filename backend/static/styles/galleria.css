@@ -1,6 +1,5 @@
 #aggiunta_elemento {
     margin: 40px auto;
-    min-width: 600px;
     max-width: 1400px;
     width: 60%;
     padding: 30px 40px;
@@ -33,7 +32,7 @@ input[type="url"] {
     content: "";
     position: absolute;
     width: 35%;
-    left: 5%;
+    left: 60%;
     top: 53%;
     height: 1px;
     z-index: 1;
@@ -41,7 +40,7 @@ input[type="url"] {
 }
 
 #oppure::before {
-    right: 5%;
+    right: 60%;
     left: auto;
 }
 
@@ -139,4 +138,12 @@ input[type="url"] {
 
 .bbtncont .material-icons {
     margin: auto
+}
+
+@media (max-width: 600px) {
+    #aggiunta_elemento {
+        margin: 0;
+        width: 90%;
+        padding: 5%;
+    }
 }
