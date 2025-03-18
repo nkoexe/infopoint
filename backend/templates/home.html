@@ -26,4 +26,26 @@
     {% endif %}
     <a href="{{url_for('logout')}}">Logout</a>
 </div>
+
+<div id="riquadro_archiviazione">
+    <div id="titolo_archiviazione">
+        <h3>Spazio di archiviazione</h3>
+        <div id="archiviazione_side"><span id="archiviazione_usata">{{archiviazione_usata}}GB</span><span>/</span><span id="archiviazione_tot">{{archiviazione_totale}}GB</span></div>
+    </div>
+    <div id="grafico_archiviazione">
+        <div id="grafico_archiviazione_usata"></div>
+        <div id="grafico_archiviazione_nostra"></div>
+    </div>
+    <div id="archiviazione_bottom">
+        <div>Utilizzato da Infopoint: <span id="archiviazione_nostra">{{archiviazione_nostra}}</span>GB</div>
+        <div>Spazio disponibile: <span id="archiviazione_disponibile">{{archiviazione_disponibile}}</span>GB</div>
+    </div>
+</div>
+
+<script>
+    window.onload = () => {
+        document.querySelector("#grafico_archiviazione_usata").style.width = "{{ (archiviazione_usata / archiviazione_totale)*100 }}%"
+        document.querySelector("#grafico_archiviazione_nostra").style.width = "{{ (archiviazione_nostra / archiviazione_totale)*100 }}%"
+    }
+</script>
 {% endblock %}

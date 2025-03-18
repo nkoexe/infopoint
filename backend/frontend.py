@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, abort
 
-from databaseconnections import media_path
 from app import socketio
 from databaseconnections import (
     bibliotecadb,

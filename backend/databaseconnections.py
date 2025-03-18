@@ -6,7 +6,7 @@ from pathlib import Path
 from flask import send_from_directory
 
 
-from database import BibliotecaDB, NotizieDB, GalleriaDB, DATABASEPATH as media_path
+from database import BibliotecaDB, NotizieDB, GalleriaDB, DATABASEPATH
 
 
 bibliotecadb = BibliotecaDB()
@@ -29,13 +29,13 @@ def file(cartella: Path, nome_file: str):
 
 def file_galleria(nome_file: str):
     try:
-        return file(media_path / "galleria" / "files", nome_file)
+        return file(DATABASEPATH / "galleria" / "files", nome_file)
     except FileNotFoundError:
         return ""
 
 
 def file_biblioteca(nome_file: str):
     try:
-        return file(media_path / "biblioteca" / "files", nome_file)
+        return file(DATABASEPATH / "biblioteca" / "files", nome_file)
     except FileNotFoundError:
         return ""

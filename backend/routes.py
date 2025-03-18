@@ -1,4 +1,6 @@
 import logging
+import shutil
+from pathlib import Path
 from flask import (
     Blueprint,
     redirect,
@@ -7,7 +9,6 @@ from flask import (
     send_from_directory,
     url_for,
 )
-
 from app import app
 from auth import users, login_richiesto, ruolo_richiesto, current_user
 from databaseconnections import (
@@ -16,6 +17,7 @@ from databaseconnections import (
     galleriadb,
     file_biblioteca,
     file_galleria,
+    DATABASEPATH,
 )
 from frontend import (
     aggiorna_galleria,
@@ -50,7 +52,25 @@ def index():
             return redirect(url_for("notizie"))
 
     # Altrimenti mostra la homepage con pulsanti in base ai propri permessi
-    return render_template("home.html", user=current_user)
+
+    # Spazio di archiviazione
+    total, used, free = map(lambda x: int(x / (2**30)), shutil.disk_usage("/"))
+
+    used_database = 0
+    for item in DATABASEPATH.parent.rglob("*"):
+        if item.is_file():
+            used_database += item.stat().st_size
+
+    used_database = round(used_database / (2**30), 2)
+
+    return render_template(
+        "home.html",
+        user=current_user,
+        archiviazione_totale=total,
+        archiviazione_usata=used,
+        archiviazione_disponibile=free,
+        archiviazione_nostra=used_database,
+    )
 
 
 @app.route("/impostazioni")
