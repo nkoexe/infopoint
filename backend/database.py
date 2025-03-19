@@ -299,15 +299,15 @@ class GalleriaDB:
             sort_keys=True,
             ensure_ascii=False,
         )
-        logging.debug("Database Notizie aggiornato.")
+        logging.debug("Database Galleria aggiornato.")
 
     def add(self, text: str | None, active: bool, media=None, link=None):
         """
-        Add a gallery to the database and set it as active.
+        Add a picture/video element to the database and set its active status.
 
-        :param str text: description of the media
-        :param bool active: set the media to active or not
-        :param file media: the flask file object of the media
+        :param str text: description of the media (optional)
+        :param bool active: visible or not
+        :param file media: the flask file object of the uploaded picture/video
         :param str link: link to the youtube video
         """
 
@@ -377,6 +377,7 @@ class GalleriaDB:
 
     def edit(self, id: str, text: str = None, active: bool = None):
         """
+        Currently not implemented in the frontend - this method is unused
         Modify a media of the gallery.
 
         :param str id: id of the media
@@ -407,6 +408,18 @@ class GalleriaDB:
         :param str id: id of the media
         """
 
+        media_dir = DATABASEPATH / "galleria" / subdir_name
+        media_path = media_dir / self.data[id]["path"]
+
+        if self.data[id]["type"] != "youtube":
+            if media_path.exists():
+                os.remove(media_path)
+                logging.debug(f"File <{media_path}> eliminato.")
+            else:
+                logging.warning(
+                    f"File da eliminare non trovato: <{media_path}>."
+                )
+            
         del self.data[id]
 
         logging.debug("Elemento di Galleria con id <{id}> eliminato")
