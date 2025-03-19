@@ -92,7 +92,11 @@ def impostazioni_utenti():
 @ruolo_richiesto.biblioteca
 def biblioteca():
     if request.method == "GET":
-        return render_template("biblioteca.html", libri=bibliotecadb.data["books"])
+        return render_template(
+            "biblioteca.html",
+            libri=bibliotecadb.data["books"],
+            attivo=bibliotecadb.data["active"],
+        )
 
     # Inserimento di un nuovo libro e modifica
     elif request.method == "POST":

@@ -23,6 +23,10 @@ input {
     padding: 10px;
 }
 
+.bcont.attivo {
+    background-color: var(--bg2);
+}
+
 .bimg {}
 
 .btit {}

@@ -24,10 +24,29 @@
   <input type="hidden" id="valore_metodo" name="metodo" value="0" />
 </form>
 
-<ul id="blist">
+{% if not attivo %}
+<h3>Nessun libro da mostrare.</h3>
+{% else %}
 
-  {% set libri = libri | dictsort(reverse=True) %}
-  {% for id, data in libri %}
+<h3>Attualmente in mostra:</h3>
+<ul id="blist">
+  <li id="{{ attivo }}">
+    <div class="bcont attivo">
+      <div class="b">
+        <div><img id="img.{{ attivo }}" src="{{ url_for('media_biblioteca', filename=libri[attivo]['img'] ) }}" alt="{{ libri[attivo]['img'] }}"></div>
+        <div id="title.{{ attivo }}" class="text">{{ libri[attivo]['title'] }}</div>
+        <div id="desc.{{ attivo }}" class="text">{{ libri[attivo]['descr'] }}</div>
+      </div>
+      <div class="bbtncont">
+        <button id="bookedit" onclick="bookedit('{{ attivo }}')">modifica</button>
+        <!-- <button id="duplicate" onclick="duplicate('{{ attivo }}')">duplica</button> -->
+        <button onclick="bookdel('{{ attivo }}')">elimina</button>
+      </div>
+    </div>
+  </li>
+
+  {% for id, data in libri | dictsort(reverse=True) %}
+  {% if id != attivo %}
   <li id="{{ id }}">
     <div class="bcont">
       <div class="b">
@@ -38,11 +57,13 @@
       <div class="bbtncont">
         <button onclick="bookshow('{{ id }}')">riutilizza</button>
         <button id="bookedit" onclick="bookedit('{{ id }}')">modifica</button>
-        <button id="duplicate" onclick="duplicate('{{ id }}')">duplica</button>
+        <!-- <button id="duplicate" onclick="duplicate('{{ id }}')">duplica</button> -->
         <button onclick="bookdel('{{ id }}')">elimina</button>
       </div>
     </div>
   </li>
+  {% endif %}
   {% endfor %}
 </ul>
+{% endif %}
 {% endblock %}
