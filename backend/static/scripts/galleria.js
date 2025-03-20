@@ -5,13 +5,18 @@ const galleria_file_input = document.getElementById("galleria_file_input")
 
 
 galleria_file_input.onchange = () => {
-    if (galleria_file_input.files[0].size > 1024 * 1024 * 1024) {
-        console.log("Il file selezionato è troppo grande.");
+    if (galleria_file_input.files[0].size > 10 * 1024 * 1024) {
+        mostra_popup_errore("Inserire un file di dimensioni inferiori a 10MB");
+        return;
+    }
+
+    const accepted = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png', 'image/webp', 'video/mp4', 'video/webm', 'video/ogg', 'video/mov', 'video/avi', 'video/mpg', 'video/mpeg'];
+    if (!accepted.includes(galleria_file_input.files[0]['type'])) {
+        mostra_popup_errore("Inserire un file di tipo immagine o video");
         return;
     }
 
     galleria_file_input.classList.add("loading");
-
 
     // show preview
     if (galleria_file_input.files && galleria_file_input.files[0]) {

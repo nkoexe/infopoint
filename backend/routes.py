@@ -8,6 +8,7 @@ from flask import (
     request,
     send_from_directory,
     url_for,
+    flash,
 )
 from app import app
 from auth import users, login_richiesto, ruolo_richiesto, current_user
@@ -156,14 +157,15 @@ def galleria():
             active = True
         else:
             active = False
-        logging.debug(active)
 
         if media.filename or link:
-            galleriadb.add(text, active, media, link)
+            res = galleriadb.add(text, active, media, link)
 
             aggiorna_galleria()
 
-        return redirect(url_for("galleria"))
+            flash(res, "success")
+
+            return redirect(url_for("galleria"))
 
     elif request.method == "DELETE":
         id = request.form["id"]

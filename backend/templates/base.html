@@ -2,7 +2,9 @@
 
 {% block head2 %}
 <link rel="stylesheet" href="{{ url_for('static', filename='styles/base.css') }}" />
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/popup.css') }}" />
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='scripts/popup.js') }}"></script>
 {% endblock %}
 
 {% block main %}
@@ -13,5 +15,25 @@
   </div>
   <div id="headerright"></div>
 </div>
+<div id="popup_ok">
+  <span id="popup_ok_text">Caricamento riuscito!!!</span>
+</div>
+<div id="popup_errore">
+  <button id="pulsante_chiudi_errore" onclick="chiudi_popup_errore()">OK!</button>
+  <span>Oh No! Qualcosa è andato storto...</span>
+  <br>
+  <span id="popup_errore_text">Il file caricato è più grande di 10MB</span>
+</div>
+<script>
+  window.onload = () => {
+    {% set caricato_ok = get_flashed_messages(category_filter = ["success"]) | first %}
+    {% if caricato_ok | default (False) %}
+    mostra_popup_ok()
+    {% endif %}
+    {% if errore | default (False) %}
+    mostra_popup_errore("{{ errore }}")
+    {% endif %}
+  };  
+</script>
 <div id="content">{% block content %}{% endblock %}</div>
 {% endblock %}
