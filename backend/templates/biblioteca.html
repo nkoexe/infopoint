@@ -33,7 +33,7 @@
   <li id="{{ attivo }}">
     <div class="bcont attivo">
       <div class="b">
-        <div><img id="img.{{ attivo }}" src="{{ url_for('media_biblioteca', filename=libri[attivo]['img'] ) }}" alt="{{ libri[attivo]['img'] }}"></div>
+        <div><img id="img.{{ attivo }}" src="{{ url_for('media_biblioteca', filename=libri[attivo]['img'] ) }}" class="img_biblioteca" alt="{{ libri[attivo]['img'] }}"></div>
         <div id="title.{{ attivo }}" class="text">{{ libri[attivo]['title'] }}</div>
         <div id="desc.{{ attivo }}" class="text">{{ libri[attivo]['descr'] }}</div>
       </div>
@@ -50,7 +50,7 @@
   <li id="{{ id }}">
     <div class="bcont">
       <div class="b">
-        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" alt="{{ data['img'] }}"></div>
+        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" class="img_biblioteca" lt="{{ data['img'] }}"></div>
         <div id="title.{{ id }}" class="text">{{ data['title'] }}</div>
         <div id="desc.{{ id }}" class="text">{{ data['descr'] }}</div>
       </div>

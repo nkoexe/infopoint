@@ -27,7 +27,12 @@ input {
     background-color: var(--bg2);
 }
 
-.bimg {}
+
+.img_biblioteca {
+    height: 400px;
+    width: 100%;
+    object-fit: contain;
+}
 
 .btit {}
 
