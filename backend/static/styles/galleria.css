@@ -81,7 +81,7 @@ input[type="url"] {
 }
 
 #activecheck:checked::before {
-    content: "<span class='material-icons'>visibility_off</span>";
+    content: "<span class='material-symbols-rounded'>visibility_off</span>";
 }
 
 #galleriasubmit {
@@ -136,7 +136,7 @@ input[type="url"] {
     padding: 10px 15px;
 }
 
-.bbtncont .material-icons {
+.bbtncont .material-symbols-rounded {
     margin: auto
 }
 

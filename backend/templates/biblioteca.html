@@ -40,9 +40,9 @@
         </div>
       </div>
       <div class="contenitore-pulsanti-libro">
-        <button id="bookedit" onclick="bookedit('{{ attivo }}')">modifica</button>
+        <button id="bookedit" onclick="bookedit('{{ attivo }}')"><span class="material-symbols-rounded">edit_note</span></button>
         <!-- <button id="duplicate" onclick="duplicate('{{ attivo }}')">duplica</button> -->
-        <button onclick="bookdel('{{ attivo }}')">elimina</button>
+        <button onclick="bookdel('{{ attivo }}')"><span class="material-symbols-rounded">scan_delete</span></button>
       </div>
     </div>
   </li>
@@ -52,17 +52,17 @@
   <li id="{{ id }}">
     <div class="contenitore-libro">
       <div class="libro">
-        <img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" class="img_biblioteca" lt="{{ data['img'] }}">
+        <img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" class="copertina-libro" lt="{{ data['img'] }}">
         <div class="testo-libro">
           <div id="title.{{ id }}" class="text titolo-libro">{{ data['title'] }}</div>
           <div id="desc.{{ id }}" class="text descrizione-libro">{{ data['descr'] }}</div>
         </div>
       </div>
       <div class="contenitore-pulsanti-libro">
-        <button onclick="bookshow('{{ id }}')">riutilizza</button>
-        <button id="bookedit" onclick="bookedit('{{ id }}')">modifica</button>
+        <button onclick="bookshow('{{ id }}')"><span class="material-symbols-rounded">cycle</span></button>
+        <button id="bookedit" onclick="bookedit('{{ id }}')"><span class="material-symbols-rounded">edit</span></button>
         <!-- <button id="duplicate" onclick="duplicate('{{ id }}')">duplica</button> -->
-        <button onclick="bookdel('{{ id }}')">elimina</button>
+        <button onclick="bookdel('{{ id }}')"><span class="material-symbols-rounded">scan_delete</span></button>
       </div>
     </div>
   </li>

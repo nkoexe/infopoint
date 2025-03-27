@@ -29,13 +29,13 @@
       <div class="text newstext{% if not data['active'] %} disabled{% endif %}" id="{{ id }}">{{ data['text'] }}</div>
       <div class="newsbtncont">
         <button class="newsbtn newsshowbtn" onclick="newsshow('{{ id }}')">
-          <span class="material-icons" id="newsshowicon{{ id }}">{% if data['active'] %} visibility {% else %} visibility_off {% endif %}</span>
+          <span class="material-symbols-rounded" id="newsshowicon{{ id }}">{% if data['active'] %} visibility {% else %} visibility_off {% endif %}</span>
         </button>
         <button class="newsbtn newseditbtn" onclick="newsedit('{{ id }}')">
-          <span class="material-icons">edit</span>
+          <span class="material-symbols-rounded">edit</span>
         </button>
         <button class="newsbtn newsdeletebtn" onclick="newsdel('{{ id }}')">
-          <span class="material-icons">delete</span>
+          <span class="material-symbols-rounded">delete</span>
         </button>
       </div>
     </div>

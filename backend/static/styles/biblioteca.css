@@ -21,25 +21,40 @@ input {
 }
 
 /* contiene immagine e testi */
-.libro {}
+.libro {
+    display: flex;
+    flex: 1;
+}
 
 .copertina-libro {
-    height: 400px;
+    height: 250px;
     width: 100%;
     object-fit: contain;
+    flex: 1
 }
 
 /* questo è il contenitore di titolo e descrizione */
-.testo-libro {}
+.testo-libro {
+    flex: 2;
+}
 
-.titolo-libro {}
+.titolo-libro {
+    font-size: larger;
+    font-weight: bold;
+}
 
 .descrizione-libro {}
 
 .contenitore-pulsanti-libro {
     margin-left: 10px;
     display: flex;
+    flex-direction: column;
 }
+
+.contenitore-pulsanti-libro button {
+    padding-top: 10px;
+}
+
 
 .hidden {
     display: none;
