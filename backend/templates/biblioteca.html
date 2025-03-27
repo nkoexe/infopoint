@@ -29,15 +29,17 @@
 {% else %}
 
 <h3>Attualmente in mostra:</h3>
-<ul id="blist">
+<ul id="lista-libri">
   <li id="{{ attivo }}">
-    <div class="bcont attivo">
-      <div class="b">
-        <div><img id="img.{{ attivo }}" src="{{ url_for('media_biblioteca', filename=libri[attivo]['img'] ) }}" class="img_biblioteca" alt="{{ libri[attivo]['img'] }}"></div>
-        <div id="title.{{ attivo }}" class="text">{{ libri[attivo]['title'] }}</div>
-        <div id="desc.{{ attivo }}" class="text">{{ libri[attivo]['descr'] }}</div>
+    <div class="contenitore-libro attivo">
+      <div class="libro">
+        <img id="img.{{ attivo }}" src="{{ url_for('media_biblioteca', filename=libri[attivo]['img'] ) }}" class="copertina-libro" alt="{{ libri[attivo]['img'] }}">
+        <div class="testo-libro">
+          <div id="title.{{ attivo }}" class="text titolo-libro">{{ libri[attivo]['title'] }}</div>
+          <div id="desc.{{ attivo }}" class="text descrizione-libro">{{ libri[attivo]['descr'] }}</div>
+        </div>
       </div>
-      <div class="bbtncont">
+      <div class="contenitore-pulsanti-libro">
         <button id="bookedit" onclick="bookedit('{{ attivo }}')">modifica</button>
         <!-- <button id="duplicate" onclick="duplicate('{{ attivo }}')">duplica</button> -->
         <button onclick="bookdel('{{ attivo }}')">elimina</button>
@@ -48,13 +50,15 @@
   {% for id, data in libri | dictsort(reverse=True) %}
   {% if id != attivo %}
   <li id="{{ id }}">
-    <div class="bcont">
-      <div class="b">
-        <div><img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" class="img_biblioteca" lt="{{ data['img'] }}"></div>
-        <div id="title.{{ id }}" class="text">{{ data['title'] }}</div>
-        <div id="desc.{{ id }}" class="text">{{ data['descr'] }}</div>
+    <div class="contenitore-libro">
+      <div class="libro">
+        <img id="img.{{ id }}" src="{{ url_for('media_biblioteca', filename=data['img'] ) }}" class="img_biblioteca" lt="{{ data['img'] }}">
+        <div class="testo-libro">
+          <div id="title.{{ id }}" class="text titolo-libro">{{ data['title'] }}</div>
+          <div id="desc.{{ id }}" class="text descrizione-libro">{{ data['descr'] }}</div>
+        </div>
       </div>
-      <div class="bbtncont">
+      <div class="contenitore-pulsanti-libro">
         <button onclick="bookshow('{{ id }}')">riutilizza</button>
         <button id="bookedit" onclick="bookedit('{{ id }}')">modifica</button>
         <!-- <button id="duplicate" onclick="duplicate('{{ id }}')">duplica</button> -->

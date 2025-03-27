@@ -1,44 +1,42 @@
-#blinea {
-    width: 65%;
-    margin: 40px 0 60px 3%;
-    height: 3px;
-    background-color: #696969;
-}
-
-#blist {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
 input {
     /* temp fix until dropzone implemented */
     display: inline !important;
 }
 
-.bcont {
+#lista-libri {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.contenitore-libro {
     /* background-color: #252525; */
     display: flex;
     margin: 10px 50px 0px 20px;
     padding: 10px;
 }
 
-.bcont.attivo {
+.contenitore-libro.attivo {
     background-color: var(--bg2);
 }
 
+/* contiene immagine e testi */
+.libro {}
 
-.img_biblioteca {
+.copertina-libro {
     height: 400px;
     width: 100%;
     object-fit: contain;
 }
 
-.btit {}
+/* questo è il contenitore di titolo e descrizione */
+.testo-libro {}
 
-.bdesc {}
+.titolo-libro {}
 
-.bbtncont {
+.descrizione-libro {}
+
+.contenitore-pulsanti-libro {
     margin-left: 10px;
     display: flex;
 }
