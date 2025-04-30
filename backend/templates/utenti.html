@@ -5,11 +5,11 @@
 
 {% block content %}
 <table id="userstable">
-  {% for id in users %}
+  {% for email in users %}
   <tr>
-    <td>{{id}}</td>
-    <td>{{ users[id]['name'] }}</td>
-    <td>{{ ', '.join(users[id]['roles']) }}</td>
+    <td>{{email}}</td>
+    <td>{{ users[email]['name'] }}</td>
+    <td>{{ ', '.join(users[email]['roles']) }}</td>
     <td>Modifica Elimina</td>
   </tr>
   {% endfor %}

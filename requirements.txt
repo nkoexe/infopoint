@@ -1,3 +1,4 @@
 flask
 flask_login
 flask_socketio
+oauthlib

@@ -1,21 +1,28 @@
-{% extends "root.html" %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block title %}Login{% endblock %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infopoint Login</title>
+</head>
 
-{% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='styles/login.css') }}" />
-{% endblock %}
+<body>
+  <style>
 
-{% block main %}
-<div id="container">
-  <h1 class="text">Infopoint Login</h1>
-  {% if error %}
-  <div class="text error">{{ error }}</div>
-  {% endif %}
-  <form method="post">
-    <input type="text" name="username" placeholder="Username" required /><br />
-    <input type="password" name="password" placeholder="Password" required /><br />
-    <input type="submit" value="Conferma" />
-  </form>
-</div>
-{% endblock %}
+  </style>
+
+  <div id="main-container">
+    <div id="piccolo-contenitore">
+      <img src="" alt="Immagine Logo Gandhi" id="logo">
+      <div id="rettangolo-separatore"></div>
+      <h1 id="titolo-wow">Infopoint</h1>
+    </div>
+    <a id="pulsante-accedi" href="/sso">Accedi</a>
+    <p id="paragrafo-note">L'accesso al sistema è eseguito tramite l'account Google @gandhimerano.com</p>
+    <p id="copyright">&copy; 2022-2025 Laboratorio HtS</p>
+  </div>
+  <img src="" alt="Immagine di sfondo design wow" id="immagine-sfondo">
+</body>
+
+</html>
