@@ -4,5 +4,11 @@
         "roles": [
             "admin"
         ]
+    },
+    "camilla.ragazzi@gandhimerano.com": {
+        "name": "Cami",
+        "roles": [
+            "admin"
+        ]
     }
 }
