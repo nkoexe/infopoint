@@ -3,7 +3,6 @@ from json import load
 from flask import abort, redirect, render_template, request, url_for
 from pathlib import Path
 from functools import wraps
-from hashlib import sha256
 from oauthlib import oauth2
 import logging
 import requests
